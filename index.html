@@ -1,28 +1,82 @@
 <!DOCTYPE html>
 <html>
+<head>
+<style>
+table { width: 100%; }
+td { width: 33.333%; }
+td:after {
+  content: '';
+  display: block;
+  margin-top: 100%;
+}
+
+table {
+  border-collapse: collapse;
+}
+td {
+  border: 6px solid #222;
+  font-size: 25pt;
+}
+td:first-of-type {
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+td:nth-of-type(2) {
+  border-top-color: transparent;
+}
+td:nth-of-type(3) {
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+tr:nth-of-type(3) td {
+  border-bottom-color: transparent;
+}
+</style>
+</head>
 <body>
 
 <h2>The XMLHttpRequest Object</h2>
 <button type="button" onclick="loadDoc()">Change Content</button>
-  
+
 <div id="demo">
 </div>
 
-	<script>
+<script>
+var gameState = null;
+// https://eddyerburgh.me/make-responsive-tic-tac-toe-board
 function loadDoc() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML =
-      this.responseText;
-      console.log( JSON.parse(this.responseText) );
+      gameState = JSON.parse(this.responseText);
+      console.log( gameState );
+      var demo = document.getElementById("demo");
+      demo.innerHTML
+         = '<table id="board">'
+         + '<tr>'
+         + '<td>'+gameState.squares[0]+'</td>'
+         + '<td>'+gameState.squares[1]+'</td>'
+         + '<td>'+gameState.squares[2]+'</td>'
+         + '</tr>'
+         + '<tr>'
+         + '<td>'+gameState.squares[3]+'</td>'
+         + '<td>'+gameState.squares[4]+'</td>'
+         + '<td>'+gameState.squares[5]+'</td>'
+         + '</tr>'
+         + '<tr>'
+         + '<td>'+gameState.squares[6]+'</td>'
+         + '<td>'+gameState.squares[7]+'</td>'
+         + '<td>'+gameState.squares[8]+'</td>'
+         + '</tr>'
+         + '</table>';
     }
   };
-  xhttp.open("GET", 
-             "https://untitled-kq3ahebyrfwc.runkit.sh/game_state",
+  xhttp.open("GET",
+             "http://localhost:8080/game_state",
+             //"https://untitled-kq3ahebyrfwc.runkit.sh/game_state",
              true);
   xhttp.send();
 }
-	</script>
+</script>
 </body>
 </html>
