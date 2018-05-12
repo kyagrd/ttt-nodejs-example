@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!--
+CSS는 다음 사이트를 참고
+https://eddyerburgh.me/make-responsive-tic-tac-toe-board
+-->
 <style>
 table {
-  width: 100%;
+  width: 600px;
+  width: 600px;
 }
 td {
-  width: 33.333%;
+  width: 200px;
+  height: 200px;
+  font-size: 100px;
   text-align: center;
- }
-td:after {
-  content: '';
-  display: block;
-  margin-top: 100%;
+  align-content: center;
+  vertical-align: middle;
 }
 
 table {
@@ -39,7 +43,7 @@ tr:nth-of-type(3) td {
 </head>
 <body>
 
-<h2>The XMLHttpRequest Object</h2>
+<h2>Tic-Tac-Toe client</h2>
 <button type="button" onclick="loadDoc()">Change Content</button>
 
 <div id="demo">
@@ -48,9 +52,6 @@ tr:nth-of-type(3) td {
 <script>
 var gameState = null;
 
-
-
-// https://eddyerburgh.me/make-responsive-tic-tac-toe-board
 function loadDoc() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -80,7 +81,6 @@ function loadDoc() {
   };
   xhttp.open("GET",
              "http://localhost:8080/game_state",
-             //"https://untitled-kq3ahebyrfwc.runkit.sh/game_state",
              true);
   xhttp.send();
 }
@@ -97,7 +97,6 @@ function move(n) {
   var turn = (gameState.isXnext ? "X" : "O");
   xhttp.open("GET",
              "http://localhost:8080/move?turn=" + turn + "&pos=" + n,
-             //"https://untitled-kq3ahebyrfwc.runkit.sh/game_state",
              true);
   xhttp.send();
 }
