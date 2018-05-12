@@ -2,8 +2,13 @@
 <html>
 <head>
 <style>
-table { width: 100%; }
-td { width: 33.333%; }
+table {
+  width: 100%;
+}
+td {
+  width: 33.333%;
+  text-align: center;
+ }
 td:after {
   content: '';
   display: block;
@@ -15,7 +20,6 @@ table {
 }
 td {
   border: 6px solid #222;
-  font-size: 25pt;
 }
 td:first-of-type {
   border-left-color: transparent;
@@ -43,6 +47,9 @@ tr:nth-of-type(3) td {
 
 <script>
 var gameState = null;
+
+
+
 // https://eddyerburgh.me/make-responsive-tic-tac-toe-board
 function loadDoc() {
   var xhttp = new XMLHttpRequest();
@@ -54,7 +61,7 @@ function loadDoc() {
       demo.innerHTML
          = '<table id="board">'
          + '<tr>'
-         + '<td>'+gameState.squares[0]+'</td>'
+         + '<td onclick="move(0)">'+gameState.squares[0]+'</td>'
          + '<td>'+gameState.squares[1]+'</td>'
          + '<td>'+gameState.squares[2]+'</td>'
          + '</tr>'
@@ -77,6 +84,25 @@ function loadDoc() {
              true);
   xhttp.send();
 }
+
+
+function move(n) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      alert('move: ' + this.responseText);
+      loadDoc(); // div 갱신
+    }
+  };
+  var turn = (gameState.isXnext ? "X" : "O");
+  xhttp.open("GET",
+             "http://localhost:8080/move?turn=" + turn + "&pos=" + n,
+             //"https://untitled-kq3ahebyrfwc.runkit.sh/game_state",
+             true);
+  xhttp.send();
+}
+
+
 </script>
 </body>
 </html>
