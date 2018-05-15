@@ -63,18 +63,18 @@ function loadDoc() {
          = '<table id="board">'
          + '<tr>'
          + '<td onclick="move(0)">'+gameState.squares[0]+'</td>'
-         + '<td>'+gameState.squares[1]+'</td>'
-         + '<td>'+gameState.squares[2]+'</td>'
+         + '<td onclick="move(1)">'+gameState.squares[1]+'</td>'
+         + '<td onclick="move(2)">'+gameState.squares[2]+'</td>'
          + '</tr>'
          + '<tr>'
-         + '<td>'+gameState.squares[3]+'</td>'
-         + '<td>'+gameState.squares[4]+'</td>'
-         + '<td>'+gameState.squares[5]+'</td>'
+         + '<td onclick="move(3)">'+gameState.squares[3]+'</td>'
+         + '<td onclick="move(4)">'+gameState.squares[4]+'</td>'
+         + '<td onclick="move(5)">'+gameState.squares[5]+'</td>'
          + '</tr>'
          + '<tr>'
-         + '<td>'+gameState.squares[6]+'</td>'
-         + '<td>'+gameState.squares[7]+'</td>'
-         + '<td>'+gameState.squares[8]+'</td>'
+         + '<td onclick="move(6)">'+gameState.squares[6]+'</td>'
+         + '<td onclick="move(7)">'+gameState.squares[7]+'</td>'
+         + '<td onclick="move(8)">'+gameState.squares[8]+'</td>'
          + '</tr>'
          + '</table>';
     }
@@ -90,7 +90,9 @@ function move(n) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      alert('move: ' + this.responseText);
+      if (this.responseText != 'OK') {
+        alert('move: ' + this.responseText);
+      }
       loadDoc(); // div 갱신
     }
   };
